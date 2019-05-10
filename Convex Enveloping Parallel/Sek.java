@@ -44,7 +44,7 @@ class Sek{
     IntList newList = new IntList();
     for(int j = 0;j<remaingingInds.size();j++){
       int i = remaingingInds.data[j];//remainingInds keeps track of indesxes to look through
-      temp = (y[minI]-y[maxI])*x[i] + (x[maxI]-x[minI])*y[i] + y[maxI]*x[minI] - y[minI]*x[maxI];
+      temp = dist(minI,maxI,i);
       if(minI == i || maxI == i){
         continue;//skips if the indexes is the uttermost points;
       }
@@ -74,30 +74,32 @@ class Sek{
       getPoints(minI,pointind,pointind,newList,side);
     }
     else if(online.size() != 0){
-      checkline(online,side);
+      checkline(online);
     }
   }
-  void checkline(IntList online,int side){
+  void checkline(IntList online){
     //insertion sort
     int t,k;
+    int p = list.get(list.size()-1);
     for(int i = 0;i<online.size()-1;i++){
       t = online.data[i+1];
       k = i;
-      while(k>=0 && x[online.data[k]]>x[t]){
+      while(k>=0 && pytha(online.data[k],p)>pytha(t,p)){
         online.data[k+1] = online.data[k];
         k--;
       }
       online.data[k+1]=t;
     }
-    if(side == 0){
-      for(int i = 0; i< online.size();i++){
-        list.add(online.data[i]);
-      }
+    for(int i = 0; i< online.size();i++){
+      list.add(online.data[i]);
     }
-    else{
-      for(int i = online.size()-1; i>= 0;i--){
-        list.add(online.data[i]);
-      }
-    }
+  }
+  int pytha(int i,int p ){
+    int a = (x[i]-x[p])*(x[i]-x[p]);
+    int b = (y[i]-y[p])*(y[i]-y[p]);
+    return a+b;
+  }
+  int dist(int minI,int maxI,int i){
+    return (y[minI]-y[maxI])*x[i] + (x[maxI]-x[minI])*y[i] + y[maxI]*x[minI] - y[minI]*x[maxI];
   }
 }

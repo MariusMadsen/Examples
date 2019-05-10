@@ -51,6 +51,12 @@ class Oblig5{
         MIN_X = sek.MIN_Y;
         new TegnUt(d,listP);*/
       }
+      for(int i = 0;i<listS.size();i++){
+        if(listS.data[i] != listP.data[i]){
+          System.out.println("ERROR YOUR ALGORITHM DOES NOT WORK WHY WOULD YOU EVEN CONSIDER DELIVERING THIS");
+          System.out.println(listS.data[i]+" != "+listP.data[i]);
+        }
+      }
       System.out.printf("| %9d | %12.2f | %12.2f | %8.2f |\n",n,timeS[median/2],timeP[median/2],timeS[median/2]/timeP[median/2]);
     }
     System.out.println("|___________|______________|______________|__________|");
